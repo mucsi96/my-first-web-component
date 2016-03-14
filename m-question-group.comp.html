@@ -1,0 +1,29 @@
+<link rel="import" href="m-question.comp.html">
+<link rel="import" href="m-answer.comp.html">
+<template>
+  <style>
+    @import url(http://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,700);
+    .container {
+      font-family: 'Roboto Condensed', sans-serif;
+    }
+
+  </style>
+  <div class="container">
+    <content select="m-question"></content>
+    <content select="m-answer"></content>
+  </div>
+</template>
+<script>
+(function() {
+  var template = document._currentScript.ownerDocument.querySelector('template').content;
+  var element = Object.create(HTMLElement.prototype);
+
+  element.createdCallback = function() {
+    var shadowRoot = this.createShadowRoot();
+    var clone = document.importNode(template, true);
+    shadowRoot.appendChild(clone);
+  };
+
+  document.registerElement('m-question-group', { prototype: element });
+}());
+</script>
